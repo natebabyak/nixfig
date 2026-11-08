@@ -3,6 +3,7 @@
 {
   programs.bash.enable = true;
   programs.firefox.enable = true;
+  programs.thunderbird.enable = true;
   programs.ghostty = {
     enable = true;
     settings = {
@@ -13,7 +14,6 @@
   };
 
   home.packages = with pkgs; [
-    thunderbird
     go
     bun
     git

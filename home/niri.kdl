@@ -3,11 +3,6 @@
 spawn-at-startup "noctalia"
 
 input {
-    keyboard {
-        xkb {
-            layout "us"
-        }
-    }
     touchpad {
         tap
         natural-scroll
@@ -16,6 +11,7 @@ input {
 
 layout {
     gaps 12
+    background-color "@base@"
     center-focused-column "on-overflow"
     default-column-width { proportion 0.5; }
     preset-column-widths {
@@ -25,10 +21,15 @@ layout {
     }
     focus-ring {
         width 2
-        active-color "#cba6f7"
-        inactive-color "#45475a"
+        active-color "@accent@"
+        inactive-color "@surface1@"
+        urgent-color "@red@"
     }
     border { off; }
+}
+
+overview {
+    backdrop-color "@mantle@"
 }
 
 prefer-no-csd
