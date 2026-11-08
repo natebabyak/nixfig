@@ -6,34 +6,46 @@ Firefox · Thunderbird · Ghostty · Go · Bun · Git
 
 Supports `x86_64-linux` and `aarch64-linux`. Machine settings stay in `/etc/nixos`.
 
-## Setup
+## Quick start
 
-Requires an existing NixOS installation. Uses **NixOS 26.05** and Home Manager.
+On a fresh NixOS installation, log in as your normal user and connect to the internet.
 
-From a permanent checkout, replace `YOUR_USERNAME` with your Linux account:
+1. **Clone**
 
-```sh
-sudo ./setup.sh YOUR_USERNAME
-sudo nixos-rebuild build --flake path:/etc/nixos#default --option experimental-features 'nix-command flakes'
-sudo nixos-rebuild switch --flake path:/etc/nixos#default --option experimental-features 'nix-command flakes'
-```
+   ```sh
+   nix-shell -p git
+   git clone https://github.com/natebabyak/nixfig.git ~/nixfig
+   cd ~/nixfig
+   ```
 
-Log in to start Niri. Keep the checkout at the same path.
+2. **Set up**
 
-<details>
-<summary>Setup notes</summary>
+   ```sh
+   sudo ./setup.sh "$(id -un)"
+   ```
 
-- Preview with `./setup.sh --print YOUR_USERNAME`.
-- Setup creates `/etc/nixos/flake.nix` and retains your machine configuration.
-- Applying this configuration moves your system to NixOS 26.05. Keep existing
-  system and Home Manager state versions; override the latter through
-  `home-manager.users.<username>.home.stateVersion` in your local configuration.
-- Already using flakes? Add this repo as an input, import
-  `nixfig.nixosModules.default`, and set `nixfig.username`.
-- Keeping a graphical login manager? Set `services.greetd.enable = false;` locally.
-- New account? Set a password with `sudo passwd YOUR_USERNAME`.
+3. **Build** — continue only if successful.
 
-</details>
+   ```sh
+   sudo nixos-rebuild build --flake path:/etc/nixos#default \
+     --option experimental-features 'nix-command flakes'
+   ```
+
+4. **Apply and reboot**
+
+   ```sh
+   sudo nixos-rebuild switch --flake path:/etc/nixos#default \
+     --option experimental-features 'nix-command flakes'
+   sudo reboot
+   ```
+
+5. **Log in** to start Niri. Keep `~/nixfig` in place.
+
+**Notes**
+
+- Uses NixOS 26.05. Keep your existing `system.stateVersion`.
+- Another display manager enabled? Disable it in `/etc/nixos/configuration.nix` before building.
+- Existing `/etc/nixos/flake.nix`? Import `nixfig.nixosModules.default` and set `nixfig.username` there instead of running setup.
 
 ## Shortcuts
 
