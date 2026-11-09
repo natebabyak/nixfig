@@ -10,6 +10,12 @@
     enable = true;
     useNautilus = false;
   };
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   hardware.graphics.enable = true;
 
   environment.systemPackages = [ pkgs.xwayland-satellite ];
