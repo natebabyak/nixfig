@@ -9,7 +9,7 @@
 
       plugins.enabled = [ "raycursive/niri-displays" ];
 
-      bar.main.start = [
+      bar.default.start = [
         "launcher"
         "wallpaper"
         "raycursive/niri-displays:bar"
