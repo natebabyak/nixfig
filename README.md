@@ -9,7 +9,10 @@ the official ChatGPT Linux desktop app and avoids stable T3 Code's EOL Electron 
 T3 Code includes its Linux desktop launcher. osu!lazer uses the official binary for
 score submission and multiplayer; it is installed on `x86_64-linux` only.
 
-Supports `x86_64-linux` and `aarch64-linux`. Machine settings stay in `/etc/nixos`.
+Supports `x86_64-linux` and `aarch64-linux`. The default hardware configuration
+targets the Intel + NVIDIA laptop; remove `./nvidia-offload.nix` from
+`modules/nixos/default.nix` for machines without that GPU setup.
+Other machine settings stay in `/etc/nixos`.
 
 ## Quick start
 
@@ -70,9 +73,8 @@ On a fresh NixOS installation, log in as your normal user and connect to the int
 
 ## NVIDIA PRIME offloading
 
-On the Intel + RTX 3070 laptop, add `nixfig.nixosModules.nvidia-offload`
-alongside `nixfig.nixosModules.default` in `/etc/nixos/flake.nix`'s `modules`
-list. The optional module enables the open NVIDIA kernel driver and PRIME
+The default module imports `modules/nixos/nvidia-offload.nix` for the
+Intel + RTX 3070 laptop. It enables the open NVIDIA kernel driver and PRIME
 offloading, with Intel at `PCI:0@0:2:0` and NVIDIA at `PCI:1@0:0:0`.
 Other machines must override `hardware.nvidia.prime.intelBusId` and
 `hardware.nvidia.prime.nvidiaBusId` to match their hardware.

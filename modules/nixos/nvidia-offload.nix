@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  # Opt-in hardware module for the Intel + RTX 3070 laptop.
+  # Hardware module for the Intel + RTX 3070 laptop.
   services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
   hardware.graphics.enable = true;
 
