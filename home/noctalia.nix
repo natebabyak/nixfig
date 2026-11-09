@@ -7,11 +7,15 @@
         polkit_agent = true;
       };
 
-      plugins.enabled = [ "raycursive/niri-displays" ];
+      plugins.enabled = [
+        "raycursive/niri-displays"
+        "noctalia/wallhaven"
+      ];
 
       bar.default.start = [
         "launcher"
         "wallpaper"
+        "noctalia/wallhaven:wallhaven"
         "raycursive/niri-displays:bar"
         "workspaces"
       ];
