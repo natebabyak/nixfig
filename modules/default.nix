@@ -28,6 +28,7 @@ in
       builtins.elem (lib.getName pkg) [
         "discord"
         "spotify"
+        "cursor"
       ];
 
     catppuccin = {
@@ -62,6 +63,7 @@ in
       extraGroups = [
         "wheel"
         "networkmanager"
+        "docker"
       ];
     };
 

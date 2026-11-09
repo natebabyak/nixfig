@@ -4,6 +4,8 @@
   networking.networkmanager.enable = lib.mkDefault true;
   hardware.bluetooth.enable = lib.mkDefault true;
 
+  virtualisation.docker.enable = true;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

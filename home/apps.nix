@@ -21,6 +21,7 @@
 
   home.packages = with pkgs; [
     zed-editor
+    code-cursor
     discord
     spotify
     go
@@ -31,4 +32,23 @@
   ];
 
   home.sessionVariables.TERMINAL = "ghostty";
+
+  xdg.desktopEntries = {
+    chatgpt = {
+      name = "ChatGPT";
+      comment = "Open ChatGPT in Firefox";
+      exec = "${pkgs.firefox}/bin/firefox https://chatgpt.com";
+      icon = "web-browser";
+      terminal = false;
+      categories = [ "Network" ];
+    };
+    linear = {
+      name = "Linear";
+      comment = "Open Linear in Firefox";
+      exec = "${pkgs.firefox}/bin/firefox https://linear.app";
+      icon = "web-browser";
+      terminal = false;
+      categories = [ "Office" ];
+    };
+  };
 }

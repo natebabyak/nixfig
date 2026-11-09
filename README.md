@@ -2,7 +2,10 @@
 
 A minimal NixOS desktop with **Niri**, **Noctalia**, and **Catppuccin Mocha**.
 
-Firefox · Thunderbird · Ghostty · Zed · Discord · Spotify · Go · Bun · Git
+Firefox · Thunderbird · Ghostty · Zed · Cursor · Discord · Spotify · Docker · Go · Bun · Git
+
+ChatGPT and Linear have application-menu shortcuts that open their web apps in Firefox.
+The Nixpkgs ChatGPT desktop package targets macOS; Linear does not provide a native Linux client.
 
 Supports `x86_64-linux` and `aarch64-linux`. Machine settings stay in `/etc/nixos`.
 
