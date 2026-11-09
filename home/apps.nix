@@ -20,6 +20,9 @@
   };
 
   home.packages = with pkgs; [
+    zed-editor
+    discord
+    spotify
     go
     bun
     git

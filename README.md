@@ -2,7 +2,7 @@
 
 A minimal NixOS desktop with **Niri**, **Noctalia**, and **Catppuccin Mocha**.
 
-Firefox · Thunderbird · Ghostty · Go · Bun · Git
+Firefox · Thunderbird · Ghostty · Zed · Discord · Spotify · Go · Bun · Git
 
 Supports `x86_64-linux` and `aarch64-linux`. Machine settings stay in `/etc/nixos`.
 

@@ -24,6 +24,12 @@ in
   };
 
   config = {
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "discord"
+        "spotify"
+      ];
+
     catppuccin = {
       enable = true;
       autoEnable = true;
