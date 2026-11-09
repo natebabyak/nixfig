@@ -33,6 +33,8 @@
         homeModule = self.homeModules.default;
       };
 
+      nixosModules.nvidia-offload = import ./modules/nixos/nvidia-offload.nix;
+
       homeModules.default =
         { pkgs, ... }:
         let

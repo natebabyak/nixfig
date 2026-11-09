@@ -29,6 +29,9 @@ in
         "discord"
         "spotify"
         "cursor"
+        "nvidia-x11"
+        "nvidia-settings"
+        "nvidia-persistenced"
       ];
 
     catppuccin = {

@@ -1,5 +1,23 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  osConfig ? { },
+  ...
+}:
 
+let
+  osu = pkgs.osu-lazer-bin;
+  offload = osConfig.hardware.nvidia.prime.offload.enableOffloadCmd or false;
+  osuWithOffload = pkgs.symlinkJoin {
+    name = "osu-lazer-nvidia-offload";
+    paths = [
+      (pkgs.writeShellScriptBin "osu!" ''
+        exec /run/current-system/sw/bin/nvidia-offload ${lib.getExe osu} "$@"
+      '')
+      osu
+    ];
+  };
+in
 {
   programs.bash.enable = true;
   programs.gh.enable = true;
@@ -34,7 +52,7 @@
     ])
     ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
       # Official binary supports score submission and multiplayer.
-      pkgs.osu-lazer-bin
+      (if offload then osuWithOffload else osu)
     ];
 
   home.sessionVariables.TERMINAL = "ghostty";

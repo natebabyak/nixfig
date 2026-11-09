@@ -68,6 +68,33 @@ On a fresh NixOS installation, log in as your normal user and connect to the int
 - `home/noctalia.nix` — desktop shell
 - `theme.nix` — colors
 
+## NVIDIA PRIME offloading
+
+On the Intel + RTX 3070 laptop, add `nixfig.nixosModules.nvidia-offload`
+alongside `nixfig.nixosModules.default` in `/etc/nixos/flake.nix`'s `modules`
+list. The optional module enables the open NVIDIA kernel driver and PRIME
+offloading, with Intel at `PCI:0@0:2:0` and NVIDIA at `PCI:1@0:0:0`.
+Other machines must override `hardware.nvidia.prime.intelBusId` and
+`hardware.nvidia.prime.nvidiaBusId` to match their hardware.
+See the [NixOS NVIDIA documentation](https://wiki.nixos.org/wiki/NVIDIA).
+
+Follow the update commands below, then reboot. Verify the driver and renderer:
+
+```sh
+nvidia-smi
+nvidia-offload nix shell nixpkgs#mesa-demos -c glxinfo -B
+```
+
+The offloaded OpenGL renderer should report the RTX 3070. When the NixOS
+offload command is enabled, this configuration wraps `osu!` to use NVIDIA
+automatically, including launches from the desktop menu. To launch manually:
+
+```sh
+nvidia-offload 'osu!'
+```
+
+For Steam games, use `nvidia-offload %command%` as the launch option.
+
 ## Update
 
 After editing the checkout:
