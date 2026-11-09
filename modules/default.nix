@@ -68,6 +68,8 @@ in
     };
 
     home-manager = {
+      # Preserve existing files when Home Manager first takes ownership.
+      backupFileExtension = "nixfig-backup";
       useGlobalPkgs = true;
       useUserPackages = true;
       users.${username} = homeModule;
