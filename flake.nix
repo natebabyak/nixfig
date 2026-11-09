@@ -35,6 +35,12 @@
 
       homeModules.default =
         { pkgs, ... }:
+        let
+          unstablePkgs = import noctalia.inputs.nixpkgs {
+            inherit (pkgs.stdenv.hostPlatform) system;
+            config.allowUnfree = true;
+          };
+        in
         {
           imports = [
             noctalia.homeModules.default
@@ -42,13 +48,11 @@
             ./home
           ];
 
-          # Stable 26.05 only packages ChatGPT for macOS. Reuse the already
-          # locked unstable input for the official Linux desktop application.
-          home.packages = [
-            (import noctalia.inputs.nixpkgs {
-              inherit (pkgs.stdenv.hostPlatform) system;
-              config.allowUnfree = true;
-            }).chatgpt
+          # Stable 26.05 lacks ChatGPT for Linux and T3 Code uses EOL Electron 40.
+          # Reuse Noctalia's locked unstable input for both desktop applications.
+          home.packages = with unstablePkgs; [
+            chatgpt
+            t3code
           ];
         };
 

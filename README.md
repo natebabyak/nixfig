@@ -4,7 +4,8 @@ A minimal NixOS desktop with **Niri**, **Noctalia**, and **Catppuccin Mocha**.
 
 Firefox · Thunderbird · Ghostty · Zed · Cursor · Discord · Spotify · ChatGPT · T3 Code · osu!lazer · Docker · Go · Bun · Git
 
-ChatGPT uses the official Linux desktop app from Noctalia’s locked unstable Nixpkgs input.
+ChatGPT and T3 Code use Noctalia’s locked unstable Nixpkgs input. This provides
+the official ChatGPT Linux desktop app and avoids stable T3 Code's EOL Electron 40 dependency.
 T3 Code includes its Linux desktop launcher. osu!lazer uses the official binary for
 score submission and multiplayer; it is installed on `x86_64-linux` only.
 

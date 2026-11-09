@@ -25,7 +25,6 @@
       code-cursor
       discord
       spotify
-      t3code
       go
       bun
       git
