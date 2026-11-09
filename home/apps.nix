@@ -2,6 +2,7 @@
 
 {
   programs.bash.enable = true;
+  programs.gh.enable = true;
   programs.firefox = {
     enable = true;
     policies.ExtensionSettings."uBlock0@raymondhill.net" = {
@@ -37,4 +38,9 @@
     ];
 
   home.sessionVariables.TERMINAL = "ghostty";
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications."inode/directory" = [ "thunar.desktop" ];
+  };
 }

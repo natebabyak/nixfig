@@ -11,6 +11,9 @@
     useNautilus = false;
   };
 
+  programs.thunar.enable = true;
+  services.gvfs.enable = true;
+
   programs.appimage = {
     enable = true;
     binfmt = true;
