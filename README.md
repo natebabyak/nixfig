@@ -2,10 +2,11 @@
 
 A minimal NixOS desktop with **Niri**, **Noctalia**, and **Catppuccin Mocha**.
 
-Firefox · Thunderbird · Ghostty · Zed · Cursor · Discord · Spotify · Docker · Go · Bun · Git
+Firefox · Thunderbird · Ghostty · Zed · Cursor · Discord · Spotify · ChatGPT · T3 Code · osu!lazer · Docker · Go · Bun · Git
 
-ChatGPT and Linear have application-menu shortcuts that open their web apps in Firefox.
-The Nixpkgs ChatGPT desktop package targets macOS; Linear does not provide a native Linux client.
+ChatGPT uses the official Linux desktop app from Noctalia’s locked unstable Nixpkgs input.
+T3 Code includes its Linux desktop launcher. osu!lazer uses the official binary for
+score submission and multiplayer; it is installed on `x86_64-linux` only.
 
 Supports `x86_64-linux` and `aarch64-linux`. Machine settings stay in `/etc/nixos`.
 

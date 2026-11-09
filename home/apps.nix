@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   programs.bash.enable = true;
@@ -19,36 +19,23 @@
     };
   };
 
-  home.packages = with pkgs; [
-    zed-editor
-    code-cursor
-    discord
-    spotify
-    go
-    bun
-    git
-    ripgrep
-    fd
-  ];
+  home.packages =
+    (with pkgs; [
+      zed-editor
+      code-cursor
+      discord
+      spotify
+      t3code
+      go
+      bun
+      git
+      ripgrep
+      fd
+    ])
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+      # Official binary supports score submission and multiplayer.
+      pkgs.osu-lazer-bin
+    ];
 
   home.sessionVariables.TERMINAL = "ghostty";
-
-  xdg.desktopEntries = {
-    chatgpt = {
-      name = "ChatGPT";
-      comment = "Open ChatGPT in Firefox";
-      exec = "${pkgs.firefox}/bin/firefox https://chatgpt.com";
-      icon = "web-browser";
-      terminal = false;
-      categories = [ "Network" ];
-    };
-    linear = {
-      name = "Linear";
-      comment = "Open Linear in Firefox";
-      exec = "${pkgs.firefox}/bin/firefox https://linear.app";
-      icon = "web-browser";
-      terminal = false;
-      categories = [ "Office" ];
-    };
-  };
 }

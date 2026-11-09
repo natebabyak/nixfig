@@ -33,13 +33,24 @@
         homeModule = self.homeModules.default;
       };
 
-      homeModules.default = {
-        imports = [
-          noctalia.homeModules.default
-          catppuccin.homeModules.default
-          ./home
-        ];
-      };
+      homeModules.default =
+        { pkgs, ... }:
+        {
+          imports = [
+            noctalia.homeModules.default
+            catppuccin.homeModules.default
+            ./home
+          ];
+
+          # Stable 26.05 only packages ChatGPT for macOS. Reuse the already
+          # locked unstable input for the official Linux desktop application.
+          home.packages = [
+            (import noctalia.inputs.nixpkgs {
+              inherit (pkgs.stdenv.hostPlatform) system;
+              config.allowUnfree = true;
+            }).chatgpt
+          ];
+        };
 
       checks =
         nixpkgs.lib.genAttrs
