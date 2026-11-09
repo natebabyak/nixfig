@@ -50,9 +50,17 @@
             ./home
           ];
 
-          # Stable 26.05 lacks ChatGPT for Linux and T3 Code uses EOL Electron 40.
-          # Reuse Noctalia's locked unstable input for both desktop applications.
+          assertions = [
+            {
+              assertion = pkgs.lib.versionAtLeast unstablePkgs.bun.version "1.4.4";
+              message = "nixfig requires Bun 1.4.4 or newer.";
+            }
+          ];
+
+          # Stable 26.05 has an older Bun, lacks ChatGPT for Linux, and T3 Code uses EOL Electron 40.
+          # Reuse Noctalia's locked unstable input for these packages.
           home.packages = with unstablePkgs; [
+            bun
             chatgpt
             t3code
           ];

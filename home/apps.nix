@@ -45,7 +45,6 @@ in
       discord
       spotify
       go
-      bun
       git
       ripgrep
       fd
