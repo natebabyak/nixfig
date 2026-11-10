@@ -63,6 +63,8 @@ window-rule {
 // Let notification actions and the launcher activate the requested window.
 debug {
     honor-xdg-activation-with-invalid-serial
+    // Keep desktop rendering on NVIDIA for the external display.
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
 }
 
 binds {
