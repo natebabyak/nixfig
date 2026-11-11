@@ -41,6 +41,7 @@ in
   home.packages =
     (with pkgs; [
       zed-editor
+      package-version-server
       code-cursor
       discord
       spotify
@@ -55,6 +56,27 @@ in
     ];
 
   home.sessionVariables.TERMINAL = "ghostty";
+
+  xdg.desktopEntries = {
+    github = {
+      name = "GitHub";
+      comment = "Open github.com";
+      exec = "${lib.getExe' pkgs.xdg-utils "xdg-open"} https://github.com";
+      icon = "internet-web-browser";
+      terminal = false;
+      categories = [ "Network" ];
+      settings.Keywords = "github.com;code;repositories;pull requests;";
+    };
+    linear = {
+      name = "Linear";
+      comment = "Open linear.app";
+      exec = "${lib.getExe' pkgs.xdg-utils "xdg-open"} https://linear.app";
+      icon = "internet-web-browser";
+      terminal = false;
+      categories = [ "Network" ];
+      settings.Keywords = "linear.app;issues;projects;tasks;";
+    };
+  };
 
   xdg.mimeApps = {
     enable = true;

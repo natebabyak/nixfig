@@ -1,112 +1,81 @@
 # nixfig
 
-A minimal NixOS desktop with **Niri**, **Noctalia**, and **Catppuccin Mocha**.
+NixOS desktop with Niri, Noctalia, and Catppuccin Mocha.
 
-Firefox · Thunderbird · Ghostty · Thunar · Zed · Cursor · Discord · Spotify · ChatGPT · T3 Code · osu!lazer · Docker · Go · Bun · Git · GitHub CLI
+## Included
 
-Bun (1.4.4+), ChatGPT, and T3 Code use Noctalia’s locked unstable Nixpkgs input. This provides
-the official ChatGPT Linux desktop app and avoids stable T3 Code's EOL Electron 40 dependency.
-T3 Code includes its Linux desktop launcher. osu!lazer uses the official binary for
-score submission and multiplayer; it is installed on `x86_64-linux` only.
+- **Apps:** Firefox, Thunderbird, Ghostty, Thunar, Zed, Cursor, Discord, Spotify, ChatGPT, T3 Code, osu!lazer (x86_64 only).
+- **Tools:** Docker, Go, Bun, Git, GitHub CLI, ripgrep, fd, package-version-server.
+- **Web shortcuts:** GitHub and Linear, searchable in the launcher.
 
-Supports `x86_64-linux` and `aarch64-linux`. The default hardware configuration
-targets the Intel + NVIDIA laptop; remove `./nvidia-offload.nix` from
-`modules/nixos/default.nix` for machines without that GPU setup.
-Other machine settings stay in `/etc/nixos`.
+## Settings
 
-## Quick start
+- Catppuccin Mocha with a mauve accent, dark mode, JetBrains Mono Nerd Font.
+- Firefox with uBlock Origin and Firefox Color; Ghostty at 12 pt without window decorations.
+- NetworkManager, Bluetooth, PipeWire, and AppImage support enabled.
+- Apps: `home/apps.nix`. Shell: `home/noctalia.nix`. Theme: `theme.nix`.
+- Machine settings: `/etc/nixos/configuration.nix`. Home Manager is applied with the system rebuild.
 
-On a fresh NixOS installation, log in as your normal user and connect to the internet.
+## Create
 
-1. **Clone**
-
-   ```sh
-   nix-shell -p git
-   git clone https://github.com/natebabyak/nixfig.git ~/nixfig
-   cd ~/nixfig
-   ```
-
-2. **Set up**
-
-   ```sh
-   sudo ./setup.sh "$(id -un)"
-   ```
-
-3. **Build** — continue only if successful.
-
-   ```sh
-   sudo nixos-rebuild build --flake path:/etc/nixos#default \
-     --option experimental-features 'nix-command flakes'
-   ```
-
-4. **Apply and reboot**
-
-   ```sh
-   sudo nixos-rebuild switch --flake path:/etc/nixos#default \
-     --option experimental-features 'nix-command flakes'
-   sudo reboot
-   ```
-
-5. **Log in** to start Niri. Keep `~/nixfig` in place.
-
-**Notes**
-
-- Uses NixOS 26.05. Keep your existing `system.stateVersion`.
-- Another display manager enabled? Disable it in `/etc/nixos/configuration.nix` before building.
-- Existing `/etc/nixos/flake.nix`? Import `nixfig.nixosModules.default` and set `nixfig.username` there instead of running setup.
-
-## Shortcuts
-
-| Shortcut | Action |
-| --- | --- |
-| Super + Enter | Terminal |
-| Super + Space | Launcher |
-| Super + Shift + comma | Settings |
-| Super + Shift + / | All shortcuts |
-
-## Customize
-
-- `home/apps.nix` — applications
-- `home/niri.kdl` — windows and shortcuts
-- `home/noctalia.nix` — desktop shell
-- `theme.nix` — colors
-
-## NVIDIA PRIME offloading
-
-The default module imports `modules/nixos/nvidia-offload.nix` for the
-Intel + RTX 3070 laptop. It enables the open NVIDIA kernel driver and PRIME
-offloading, with Intel at `PCI:0@0:2:0` and NVIDIA at `PCI:1@0:0:0`.
-Other machines must override `hardware.nvidia.prime.intelBusId` and
-`hardware.nvidia.prime.nvidiaBusId` to match their hardware.
-See the [NixOS NVIDIA documentation](https://wiki.nixos.org/wiki/NVIDIA).
-
-Follow the update commands below, then reboot. Verify the driver and renderer:
+On an installed NixOS system without an existing `/etc/nixos/flake.nix`:
 
 ```sh
-nvidia-smi
-nvidia-offload nix shell nixpkgs#mesa-demos -c glxinfo -B
+nix-shell -p git
+git clone https://github.com/natebabyak/nixfig.git ~/nixfig
+cd ~/nixfig
+sudo ./setup.sh "$(id -un)"
+sudo nixos-rebuild build --flake path:/etc/nixos#default \
+  --option experimental-features 'nix-command flakes'
+sudo nixos-rebuild switch --flake path:/etc/nixos#default \
+  --option experimental-features 'nix-command flakes'
+sudo reboot
 ```
 
-The offloaded OpenGL renderer should report the RTX 3070. When the NixOS
-offload command is enabled, this configuration wraps `osu!` to use NVIDIA
-automatically, including launches from the desktop menu. To launch manually:
+Keep the checkout in place. If you already have a system flake, import
+`nixfig.nixosModules.default` and set `nixfig.username` there instead of running setup.
+
+## Build and switch
+
+Run from this repo's directory. The override uses your current local edits.
 
 ```sh
-nvidia-offload 'osu!'
-```
+# Build without activating
+sudo nixos-rebuild build --flake path:/etc/nixos#default \
+  --override-input nixfig "path:$PWD"
 
-For Steam games, use `nvidia-offload %command%` as the launch option.
+# Build and activate
+sudo nixos-rebuild switch --flake path:/etc/nixos#default \
+  --override-input nixfig "path:$PWD"
+```
 
 ## Update
 
-After editing the checkout:
+Run from this repo, then use the switch command above:
 
 ```sh
+# Update package and module versions
+nix flake update
+
+# Refresh the system's reference to this checkout
 sudo nix flake update nixfig --flake path:/etc/nixos
-sudo nixos-rebuild build --flake path:/etc/nixos#default
-sudo nixos-rebuild switch --flake path:/etc/nixos#default
 ```
 
-Run `nix flake update` in this repo first to also update dependencies.
+## Generations and cleanup
 
-Rollback: `sudo nixos-rebuild switch --rollback`.
+```sh
+# List system generations
+nixos-rebuild list-generations
+
+# Switch back to the previous generation
+sudo nixos-rebuild switch --rollback
+```
+
+```sh
+# Delete generations older than 30 days and collect unused store paths
+sudo nix-collect-garbage --delete-older-than 30d
+```
+
+To delete all previous generations instead, use `sudo nix-collect-garbage -d`.
+Deleted generations are no longer available for rollback. After cleanup, run the
+switch command above to refresh the boot menu.
