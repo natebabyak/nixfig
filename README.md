@@ -31,7 +31,7 @@ disk identifiers, monitor modes, or forced GPU selection.
 - **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, ripgrep, fd,
   package-version-server.
 - **Desktop:** Niri, Noctalia, greetd/tuigreet, AppImage support, NetworkManager,
-  Bluetooth, PipeWire, power management, GitHub and Linear launcher shortcuts.
+  Bluetooth, PipeWire, power management.
 - **Theme:** Catppuccin Mocha/mauve, dark mode, JetBrains Mono Nerd Font,
   uBlock Origin and Firefox Color, Ghostty at 12 pt without decorations.
 - **NVIDIA laptop:** Open kernel modules, modesetting, PRIME offload,
