@@ -2,18 +2,7 @@
 // Mod is the Super/Windows key when running a normal desktop session.
 spawn-at-startup "noctalia"
 
-// Display positions use logical pixels; both displays run at scale 1.
-output "eDP-1" {
-    mode "1920x1080@240.000"
-    scale 1
-    position x=0 y=0
-}
-
-output "ASUSTek COMPUTER INC VG248 L2LMQS021982" {
-    mode "1920x1080@164.917"
-    scale 1
-    position x=1920 y=0
-}
+@extraConfig@
 
 input {
     touchpad {
@@ -63,8 +52,7 @@ window-rule {
 // Let notification actions and the launcher activate the requested window.
 debug {
     honor-xdg-activation-with-invalid-serial
-    // Keep desktop rendering on NVIDIA for the external display.
-    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    @renderDrmDevice@
 }
 
 binds {

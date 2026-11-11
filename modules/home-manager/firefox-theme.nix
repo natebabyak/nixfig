@@ -1,7 +1,7 @@
 { lib }:
 
 let
-  theme = import ../theme.nix;
+  theme = import ../../theme.nix;
   rgb = builtins.mapAttrs (_: hex: {
     r = lib.fromHexString (builtins.substring 1 2 hex);
     g = lib.fromHexString (builtins.substring 3 2 hex);

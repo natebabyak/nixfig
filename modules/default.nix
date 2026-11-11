@@ -24,11 +24,13 @@ in
   };
 
   config = {
-    nixpkgs.config.allowUnfreePredicate = pkg:
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
       builtins.elem (lib.getName pkg) [
         "discord"
         "spotify"
         "cursor"
+        "osu-lazer-bin"
         "nvidia-x11"
         "nvidia-settings"
         "nvidia-persistenced"

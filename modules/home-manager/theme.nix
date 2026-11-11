@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  theme = import ../theme.nix;
+  theme = import ../../theme.nix;
 in
 {
   # Automatically theme supported applications as they are enabled.

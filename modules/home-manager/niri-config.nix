@@ -1,7 +1,11 @@
-{ pkgs }:
+{
+  pkgs,
+  extraConfig ? "",
+  renderDrmDevice ? null,
+}:
 
 let
-  theme = import ../theme.nix;
+  theme = import ../../theme.nix;
   configFile = pkgs.replaceVars ./niri.kdl {
     inherit (theme.colors)
       base
@@ -10,6 +14,9 @@ let
       red
       ;
     accent = theme.colors.${theme.accent};
+    inherit extraConfig;
+    renderDrmDevice =
+      if renderDrmDevice == null then "" else "render-drm-device ${builtins.toJSON renderDrmDevice}";
   };
 in
 pkgs.runCommand "niri-config.kdl" { } ''

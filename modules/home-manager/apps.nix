@@ -43,14 +43,15 @@ in
       zed-editor
       package-version-server
       code-cursor
-      discord
-      spotify
       go
       git
       ripgrep
       fd
     ])
     ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+      # These upstream binaries are unavailable on aarch64-linux.
+      pkgs.discord
+      pkgs.spotify
       # Official binary supports score submission and multiplayer.
       (if offload then osuWithOffload else osu)
     ];
