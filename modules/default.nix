@@ -29,6 +29,8 @@ in
       builtins.elem (lib.getName pkg) [
         "discord"
         "spotify"
+        "steam"
+        "steam-unwrapped"
         "cursor"
         "osu-lazer-bin"
         "nvidia-x11"
