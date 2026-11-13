@@ -12,6 +12,7 @@
   };
 
   programs.thunar.enable = true;
+  programs.steam.enable = true;
   services.gvfs.enable = true;
 
   programs.appimage = {
