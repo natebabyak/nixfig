@@ -29,8 +29,8 @@ disk identifiers, monitor modes, or forced GPU selection.
   Claude Desktop (including Claude Code);
   Discord, Spotify, and osu!lazer on x86_64 Linux (their pinned binaries do not
   support ARM Linux).
-- **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, ripgrep, fd,
-  package-version-server.
+- **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, Codex CLI (`codex`),
+  Claude Code (`claude`), ripgrep, fd, package-version-server.
 - **Desktop:** Niri, Noctalia, greetd/tuigreet, AppImage support, NetworkManager,
   Bluetooth, PipeWire, power management.
 - **Theme:** Catppuccin Mocha/mauve, dark mode, JetBrains Mono Nerd Font,

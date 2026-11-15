@@ -43,6 +43,8 @@ in
       zed-editor
       package-version-server
       code-cursor
+      codex
+      claude-code
       go
       git
       ripgrep
