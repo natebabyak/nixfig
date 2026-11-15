@@ -25,7 +25,8 @@ disk identifiers, monitor modes, or forced GPU selection.
 
 ## Included
 
-- **Apps:** Firefox, Thunderbird, Ghostty, Thunar, Zed, Cursor, ChatGPT, T3 Code;
+- **Apps:** Firefox, Thunderbird, Ghostty, Thunar, Zed, Cursor, ChatGPT, T3 Code,
+  Claude Desktop (including Claude Code);
   Discord, Spotify, and osu!lazer on x86_64 Linux (their pinned binaries do not
   support ARM Linux).
 - **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, ripgrep, fd,
@@ -198,7 +199,14 @@ does not build them.
 
 Input versions remain pinned until you update `flake.lock`. Bun, ChatGPT, and
 T3 Code reuse Noctalia's separately locked newer nixpkgs input; everything else
-uses the main locked NixOS package set. Firefox extension installation URLs and
+uses the main locked NixOS package set, except Claude Desktop. Claude Desktop uses
+[aaddrick/claude-desktop-debian](https://github.com/aaddrick/claude-desktop-debian),
+a separately locked, unofficial Nix repackaging of Anthropic's official Linux
+`.deb`, for both x86_64 and ARM Linux. It shares Noctalia's nixpkgs input and uses
+its non-FHS package so Claude Code's spawned shells are not restricted by an FHS
+sandbox. Launch **Claude** from the app launcher or run `claude-desktop`; signing
+in and using Claude are subject to Anthropic's account, plan, and service terms.
+Firefox extension installation URLs and
 Noctalia's runtime plugins/wallpaper providers still contact their upstream
 services, as in the original setup; their remote content is not pinned by Nix.
 

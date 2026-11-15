@@ -1,4 +1,8 @@
-{ catppuccin, noctalia }:
+{
+  catppuccin,
+  noctalia,
+  claude-desktop,
+}:
 
 { lib, pkgs, ... }:
 
@@ -28,11 +32,16 @@ in
 
   # Stable 26.05 has an older Bun, lacks ChatGPT for Linux, and T3 Code uses EOL Electron 40.
   # Reuse Noctalia's locked unstable input for these packages.
-  home.packages = with unstablePkgs; [
-    bun
-    chatgpt
-    t3code
-  ];
+  home.packages =
+    (with unstablePkgs; [
+      bun
+      chatgpt
+      t3code
+    ])
+    ++ [
+      # Avoid the FHS wrapper's restrictions on Claude Code's spawned shells.
+      claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
+    ];
 
   home.stateVersion = lib.mkDefault "26.05";
 

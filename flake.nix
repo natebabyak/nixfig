@@ -16,6 +16,11 @@
 
     # Keep Noctalia's own nixpkgs for its newer build dependencies.
     noctalia.url = "github:noctalia-dev/noctalia";
+
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+      inputs.nixpkgs.follows = "noctalia/nixpkgs";
+    };
   };
 
   outputs =
@@ -25,6 +30,7 @@
       home-manager,
       catppuccin,
       noctalia,
+      claude-desktop,
       ...
     }:
     {
@@ -43,7 +49,7 @@
       nixosModules.nvidia-offload = import ./modules/nixos/nvidia-offload.nix;
 
       homeModules.default = import ./modules/home-manager {
-        inherit catppuccin noctalia;
+        inherit catppuccin noctalia claude-desktop;
       };
 
       checks =
