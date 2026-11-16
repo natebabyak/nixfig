@@ -32,7 +32,6 @@ in
         "steam"
         "steam-unwrapped"
         "cursor"
-        "claude-code"
         "osu-lazer-bin"
         "nvidia-x11"
         "nvidia-settings"

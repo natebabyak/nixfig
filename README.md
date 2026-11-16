@@ -30,7 +30,8 @@ disk identifiers, monitor modes, or forced GPU selection.
   Discord, Spotify, and osu!lazer on x86_64 Linux (their pinned binaries do not
   support ARM Linux).
 - **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, Codex CLI (`codex`),
-  Claude Code (`claude`), ripgrep, fd, package-version-server.
+  ripgrep, fd, package-version-server. Claude Code (`claude`) uses Anthropic's
+  native installer; see below.
 - **Desktop:** Niri, Noctalia, greetd/tuigreet, AppImage support, NetworkManager,
   Bluetooth, PipeWire, power management.
 - **Theme:** Catppuccin Mocha/mauve, dark mode, JetBrains Mono Nerd Font,
@@ -209,6 +210,26 @@ in and using Claude are subject to Anthropic's account, plan, and service terms.
 Firefox extension installation URLs and
 Noctalia's runtime plugins/wallpaper providers still contact their upstream
 services, as in the original setup; their remote content is not pinned by Nix.
+
+### Native Claude Code
+
+The shared NixOS module enables `nix-ld` with the native binary's runtime libraries
+and adds `~/.local/bin` ahead of system packages in the login PATH. Claude Code's
+CLI is installed separately from Nix so it can update itself. Claude Desktop
+remains managed by the flake.
+
+After rebuilding and switching the system, log out and back in, then run:
+
+```sh
+curl -fsSL https://claude.ai/install.sh | bash
+type -a claude
+claude update
+claude --version
+```
+
+The first executable listed should be `~/.local/bin/claude`. Native installations
+support automatic updates without a NixOS rebuild; see
+[Anthropic's setup documentation](https://code.claude.com/docs/en/setup).
 
 To remove old generations and unused store paths:
 
