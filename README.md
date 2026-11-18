@@ -200,7 +200,8 @@ does not build them.
 
 Input versions remain pinned until you update `flake.lock`. Bun, ChatGPT, and
 T3 Code reuse Noctalia's separately locked newer nixpkgs input; everything else
-uses the main locked NixOS package set, except Claude Desktop. Claude Desktop uses
+uses the main locked NixOS package set, except Claude Desktop. To refresh just
+that newer package set, run `nix flake update noctalia/nixpkgs`. Claude Desktop uses
 [aaddrick/claude-desktop-debian](https://github.com/aaddrick/claude-desktop-debian),
 a separately locked, unofficial Nix repackaging of Anthropic's official Linux
 `.deb`, for both x86_64 and ARM Linux. It shares Noctalia's nixpkgs input and uses

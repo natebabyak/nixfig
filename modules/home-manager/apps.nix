@@ -57,10 +57,19 @@ in
       (if offload then osuWithOffload else osu)
     ];
 
-  home.sessionVariables.TERMINAL = "ghostty";
+  home.sessionVariables = {
+    BROWSER = "firefox";
+    TERMINAL = "ghostty";
+  };
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications."inode/directory" = [ "thunar.desktop" ];
+    defaultApplications = {
+      "inode/directory" = [ "thunar.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "application/xhtml+xml" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+    };
   };
 }

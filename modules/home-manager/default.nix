@@ -30,8 +30,7 @@ in
     }
   ];
 
-  # Stable 26.05 has an older Bun, lacks ChatGPT for Linux, and T3 Code uses EOL Electron 40.
-  # Reuse Noctalia's locked unstable input for these packages.
+  # Reuse Noctalia's locked unstable input for newer application dependencies.
   home.packages =
     (with unstablePkgs; [
       bun
