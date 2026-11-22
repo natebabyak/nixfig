@@ -13,6 +13,7 @@
 
   programs.thunar.enable = true;
   programs.steam.enable = true;
+  programs.gamescope.enable = true;
   services.gvfs.enable = true;
 
   programs.appimage = {
