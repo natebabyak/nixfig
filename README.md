@@ -201,8 +201,10 @@ does not build them.
 
 Input versions remain pinned until you update `flake.lock`. Bun, ChatGPT, and
 Antigravity CLI reuse Noctalia's separately locked newer nixpkgs input; refresh
-that package set with `nix flake update noctalia/nixpkgs`. T3 Code uses the dedicated
-`nixpkgs-unstable` input; refresh it with `nix flake update nixpkgs-unstable`.
+that package set with `nix flake update noctalia/nixpkgs`. T3 Code's desktop app uses
+an official upstream AppImage pinned in `modules/home-manager/default.nix`; update
+its version and per-architecture SHA-256 hashes there, then rebuild. Flake input
+updates and the app's built-in updater do not update this Nix-managed installation.
 Everything else uses the main locked NixOS package set, except Claude Desktop.
 Claude Desktop uses
 [aaddrick/claude-desktop-debian](https://github.com/aaddrick/claude-desktop-debian),

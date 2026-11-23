@@ -12,6 +12,40 @@ let
     inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
+
+  # Pin the official desktop release independently of nixpkgs.
+  t3code =
+    let
+      version = "0.1.11";
+      source = {
+        x86_64-linux = {
+          arch = "x86_64";
+          hash = "sha256-i6oGp7uqP3KdaUZvshHtcAbWpuTYALns2s2DH9FoaxQ=";
+        };
+        aarch64-linux = {
+          arch = "arm64";
+          hash = "sha256-Pa+IzPF1SLwp/4pueOIl3vBpa0RJjF9QBXBI4YLxRiY=";
+        };
+      }.${pkgs.stdenv.hostPlatform.system};
+      src = pkgs.fetchurl {
+        url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${source.arch}.AppImage";
+        inherit (source) hash;
+      };
+      contents = pkgs.appimageTools.extractType2 {
+        pname = "t3code";
+        inherit version src;
+      };
+    in
+    pkgs.appimageTools.wrapType2 {
+      pname = "t3code-desktop";
+      inherit version src;
+      extraInstallCommands = ''
+        install -Dm444 ${contents}/t3code.desktop "$out/share/applications/t3code.desktop"
+        substituteInPlace "$out/share/applications/t3code.desktop" \
+          --replace-fail 'Exec=AppRun' "Exec=$out/bin/t3code-desktop"
+        cp -r ${contents}/usr/share/icons "$out/share/icons"
+      '';
+    };
 in
 
 {
@@ -39,7 +73,7 @@ in
       antigravity-cli
     ])
     ++ [
-      inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.t3code
+      t3code
       # Avoid the FHS wrapper's restrictions on Claude Code's spawned shells.
       claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
     ];
