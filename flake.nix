@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -27,12 +28,13 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       catppuccin,
       noctalia,
       claude-desktop,
       ...
-    }:
+    }@inputs:
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         modules = [
@@ -49,7 +51,7 @@
       nixosModules.nvidia-offload = import ./modules/nixos/nvidia-offload.nix;
 
       homeModules.default = import ./modules/home-manager {
-        inherit catppuccin noctalia claude-desktop;
+        inherit inputs catppuccin noctalia claude-desktop;
       };
 
       checks =

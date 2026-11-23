@@ -1,4 +1,5 @@
 {
+  inputs,
   catppuccin,
   noctalia,
   claude-desktop,
@@ -35,9 +36,10 @@ in
     (with unstablePkgs; [
       bun
       chatgpt
-      t3code
+      antigravity-cli
     ])
     ++ [
+      inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.t3code
       # Avoid the FHS wrapper's restrictions on Claude Code's spawned shells.
       claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
     ];

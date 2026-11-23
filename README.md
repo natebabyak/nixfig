@@ -30,7 +30,8 @@ disk identifiers, monitor modes, or forced GPU selection.
   Discord, Spotify, and osu!lazer on x86_64 Linux (their pinned binaries do not
   support ARM Linux).
 - **Tools:** Docker, Go, Bun (at least 1.4.4), Git, GitHub CLI, Codex CLI (`codex`),
-  ripgrep, fd, package-version-server. Claude Code (`claude`) uses Anthropic's
+  Antigravity CLI (`agy`), ripgrep, fd, package-version-server.
+  Claude Code (`claude`) uses Anthropic's
   native installer; see below.
 - **Desktop:** Niri, Noctalia, greetd/tuigreet, AppImage support, NetworkManager,
   Bluetooth, PipeWire, power management.
@@ -199,9 +200,11 @@ appropriately configured remote builder/emulation; evaluating ARM outputs alone
 does not build them.
 
 Input versions remain pinned until you update `flake.lock`. Bun, ChatGPT, and
-T3 Code reuse Noctalia's separately locked newer nixpkgs input; everything else
-uses the main locked NixOS package set, except Claude Desktop. To refresh just
-that newer package set, run `nix flake update noctalia/nixpkgs`. Claude Desktop uses
+Antigravity CLI reuse Noctalia's separately locked newer nixpkgs input; refresh
+that package set with `nix flake update noctalia/nixpkgs`. T3 Code uses the dedicated
+`nixpkgs-unstable` input; refresh it with `nix flake update nixpkgs-unstable`.
+Everything else uses the main locked NixOS package set, except Claude Desktop.
+Claude Desktop uses
 [aaddrick/claude-desktop-debian](https://github.com/aaddrick/claude-desktop-debian),
 a separately locked, unofficial Nix repackaging of Anthropic's official Linux
 `.deb`, for both x86_64 and ARM Linux. It shares Noctalia's nixpkgs input and uses
